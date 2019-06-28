@@ -5,7 +5,7 @@ import "./App.css";
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { apiResponse: "", dbResponse: "" };
+    this.state = { apiResponse: "", dbResponse: "", userResponse: "" };
   }
   callAPI() {
     fetch("http://localhost:9000/testAPI")
