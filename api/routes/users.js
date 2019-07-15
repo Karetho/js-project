@@ -19,8 +19,8 @@ router.get("/", function(req, res, next) {
       });
     });
 });
-router.get("/add", function(req, res, next) {
-  Users.create({ firstName: "user" });
+router.post("/add", function(req, res) {
+  Users.create({ firstName: req.body.firstName });
   res.send("user created");
 });
 module.exports = router;

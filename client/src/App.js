@@ -1,6 +1,9 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
 import "./App.css";
+import Users from "./Users/Users";
+import { Router } from "@reach/router";
+import Nav from "./Nav/Nav";
+import CreateUserForm from "./Users/CreateUserForm";
 
 class App extends Component {
   constructor(props) {
@@ -32,23 +35,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Nav />
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          Hello world
+          <div className="content">
+            <Router>
+              <Users path="/users" />
+              <CreateUserForm path="/users/create" />
+            </Router>
+          </div>
         </header>
-        <p className="App-intro">{this.state.apiResponse}</p>
-        <p className="App-intro">{this.state.dbResponse}</p>
-        <p className="App-intro">{this.state.userResponse}</p>
       </div>
     );
   }
