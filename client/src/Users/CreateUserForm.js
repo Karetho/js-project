@@ -5,14 +5,29 @@ import { TextField } from "@material-ui/core";
 class CreateUserForm extends Component {
   constructor(props) {
     super(props);
-    this.state = { value: "" };
+    this.state = { firstName: "", lastName: "", login: "", password: "" };
 
-    this.handleChange = this.handleChange.bind(this);
+    this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
+    this.handleLastNameChange = this.handleLastNameChange.bind(this);
+    this.handleLoginChange = this.handleLoginChange.bind(this);
+    this.handlePasswordChange = this.handlePasswordChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleChange(event) {
-    this.setState({ value: event.target.value });
+  handleFirstNameChange(event) {
+    this.setState({ firstName: event.target.value });
+  }
+
+  handleLastNameChange(event) {
+    this.setState({ lastName: event.target.value });
+  }
+
+  handleLoginChange(event) {
+    this.setState({ login: event.target.value });
+  }
+
+  handlePasswordChange(event) {
+    this.setState({ password: event.target.value });
   }
 
   postData(url = "", data = {}) {
@@ -32,41 +47,100 @@ class CreateUserForm extends Component {
     }).then(response => response.json()); // parses JSON response into native JavaScript objects
   }
   handleSubmit(event) {
-    this.postData("http://localhost:9000/users/add", {
-      firstName: this.state.value
-    })
+    this.postData("http://localhost:9000/users/add", this.state)
       .then(data => console.log(JSON.stringify(data))) // JSON-string from `response.json()` call
       .catch(error => console.error(error));
-    alert("A name was submitted: " + this.state.value);
+    alert("A name was submitted: " + JSON.stringify(this.state));
     event.preventDefault();
   }
   render() {
     return (
       <div>
         <form onSubmit={this.handleSubmit}>
-          <label>
-            <TextField
-              style={{
-                backgroundColor: "grey"
-              }}
-              InputProps={{
-                style: {
-                  color: "white"
-                }
-              }}
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="firstName"
-              label="First Name"
-              name="firstName"
-              autoComplete="firstName"
-              autoFocus
-              value={this.state.value}
-              onChange={this.handleChange}
-            />
-          </label>
+          <TextField
+            style={{
+              backgroundColor: "grey"
+            }}
+            InputProps={{
+              style: {
+                color: "white"
+              }
+            }}
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="firstName"
+            label="First Name"
+            name="firstName"
+            autoComplete="firstName"
+            autoFocus
+            value={this.state.firstName}
+            onChange={this.handleFirstNameChange}
+          />
+          <TextField
+            style={{
+              backgroundColor: "grey"
+            }}
+            InputProps={{
+              style: {
+                color: "white"
+              }
+            }}
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="lastName"
+            label="Last Name"
+            name="lastName"
+            autoComplete="lastName"
+            autoFocus
+            value={this.state.lastName}
+            onChange={this.handleLastNameChange}
+          />
+          <TextField
+            style={{
+              backgroundColor: "grey"
+            }}
+            InputProps={{
+              style: {
+                color: "white"
+              }
+            }}
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="login"
+            label="Login"
+            name="login"
+            autoComplete="login"
+            autoFocus
+            value={this.state.login}
+            onChange={this.handleLoginChange}
+          />
+          <TextField
+            style={{
+              backgroundColor: "grey"
+            }}
+            InputProps={{
+              style: {
+                color: "white"
+              }
+            }}
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="password"
+            label="Password"
+            name="password"
+            autoComplete="password"
+            autoFocus
+            value={this.state.password}
+            onChange={this.handlePasswordChange}
+          />
           <Button type="submit" variant="contained" color="primary">
             Submit
           </Button>

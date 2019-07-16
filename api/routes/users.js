@@ -20,7 +20,12 @@ router.get("/", function(req, res, next) {
     });
 });
 router.post("/add", function(req, res) {
-  Users.create({ firstName: req.body.firstName });
+  Users.create({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    login: req.body.login,
+    password: req.body.password
+  });
   res.send("user created");
 });
 module.exports = router;

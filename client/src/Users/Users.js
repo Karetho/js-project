@@ -1,14 +1,30 @@
 import React, { Component } from "react";
 
 import User from "./User";
+import {
+  Paper,
+  Table,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableBody
+} from "@material-ui/core";
 
 class Users extends Component {
   constructor(props) {
     super(props);
-    this.state = { users: "" };
+    this.state = { users: "", columns: "" };
   }
   componentWillMount() {
     this.callUsers();
+    this.setState({
+      columns: [
+        {
+          title: "First Name",
+          field: "firstName"
+        }
+      ]
+    });
   }
 
   callUsers() {
@@ -20,8 +36,11 @@ class Users extends Component {
         const data = res.data.map(user => {
           return (
             <User
+              _id={user._id}
               firstName={user.firstName}
               lastName={user.lastName}
+              login={user.login}
+              password={user.password}
               className="user"
             />
           );
@@ -31,7 +50,23 @@ class Users extends Component {
       .catch(err => err);
   }
   render() {
-    return <div className="search">{this.state.users}</div>;
+    return (
+      <div className="search">
+        <Paper>
+          <Table size="small">
+            <TableHead>
+              <TableRow>
+                <TableCell>First name</TableCell>
+                <TableCell>Last name</TableCell>
+                <TableCell>Login</TableCell>
+                <TableCell>Password</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>{this.state.users}</TableBody>
+          </Table>
+        </Paper>
+      </div>
+    );
   }
 }
 
