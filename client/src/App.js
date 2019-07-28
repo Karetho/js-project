@@ -4,6 +4,7 @@ import Users from "./Users/Users";
 import { Router } from "@reach/router";
 import Nav from "./Nav/Nav";
 import CreateUserForm from "./Users/CreateUserForm";
+import EditUserForm from "./Users/EditUserForm";
 
 class App extends Component {
   constructor(props) {
@@ -37,11 +38,12 @@ class App extends Component {
       <div className="App">
         <Nav />
         <header className="App-header">
-          Hello world
+          {/* Hello world */}
           <div className="content">
             <Router>
               <Users path="/users" />
               <CreateUserForm path="/users/create" />
+              <EditUserForm path="/users/edit/:id" />
             </Router>
           </div>
         </header>

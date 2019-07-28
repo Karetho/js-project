@@ -13,18 +13,10 @@ import {
 class Users extends Component {
   constructor(props) {
     super(props);
-    this.state = { users: "", columns: "" };
+    this.state = { users: "" };
   }
-  componentWillMount() {
+  componentDidMount() {
     this.callUsers();
-    this.setState({
-      columns: [
-        {
-          title: "First Name",
-          field: "firstName"
-        }
-      ]
-    });
   }
 
   callUsers() {
@@ -47,7 +39,9 @@ class Users extends Component {
         });
         this.setState({ users: data });
       })
-      .catch(err => err);
+      .catch(err => {
+        console.log(err);
+      });
   }
   render() {
     return (
