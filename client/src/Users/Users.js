@@ -20,7 +20,7 @@ class Users extends Component {
   }
 
   callUsers() {
-    fetch("http://localhost:9000/users")
+    fetch("http://localhost/api/users")
       .then(res => {
         return res.json();
       })

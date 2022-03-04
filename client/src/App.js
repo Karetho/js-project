@@ -12,7 +12,7 @@ class App extends Component {
     this.state = { apiResponse: "", dbResponse: "", userResponse: "" };
   }
   callAPI() {
-    fetch("http://localhost:9000/testAPI")
+    fetch("http://localhost/api/testAPI")
       .then(res => res.text())
       .then(res => this.setState({ apiResponse: res }));
   }
@@ -22,13 +22,13 @@ class App extends Component {
     this.callUsers();
   }
   callDB() {
-    fetch("http://localhost:9000/testDB")
+    fetch("http://localhost/api/testDB")
       .then(res => res.text())
       .then(res => this.setState({ dbResponse: res }))
       .catch(err => err);
   }
   callUsers() {
-    fetch("http://localhost:9000/users")
+    fetch("http://localhost/api/users")
       .then(res => res.text())
       .then(res => this.setState({ userResponse: res }))
       .catch(err => err);

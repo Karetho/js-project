@@ -45,7 +45,7 @@ class UserForm extends Component {
     }).then(response => response.json());
   }
   handleSubmit(event) {
-    this.postData("http://localhost:9000/users/add", this.state)
+    this.postData("http://localhost/api/users/add", this.state)
       .then(data => console.log(JSON.stringify(data))) // JSON-string from `response.json()` call
       .catch(error => console.error(error));
     event.preventDefault();

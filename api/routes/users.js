@@ -32,7 +32,6 @@ router.post("/add", function(req, res) {
     .catch(err => {
       res.status(400).send("unable to save to database");
     });
-  res.send("user created");
 });
 // Get Specific
 router.route("/:id").get(function(req, res) {

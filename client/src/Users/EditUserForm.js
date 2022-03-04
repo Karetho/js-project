@@ -25,7 +25,7 @@ class EditUserForm extends Component {
   }
 
   findUser() {
-    fetch("http://localhost:9000/users/" + this.props.id)
+    fetch("http://localhost/api/users/" + this.props.id)
       .then(res => {
         return res.json();
       })
@@ -73,7 +73,7 @@ class EditUserForm extends Component {
   }
   handleSubmit(event) {
     this.postData(
-      "http://localhost:9000/users/update/" + this.state._id,
+      "http://localhost/api/users/update/" + this.state._id,
       this.state
     )
       .then(data => console.log(JSON.stringify(data)))

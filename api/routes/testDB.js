@@ -10,7 +10,7 @@ router.get("/", function(req, res, next) {
 });
 
 // Connecting to MongoDB
-mongoose.connect("mongodb://mongodb:27017/test", { useNewUrlParser: true });
+mongoose.connect("mongodb://root:example@db:27017/admin", { useNewUrlParser: true });
 
 // If there is a connection error send an error message
 mongoose.connection.on("error", error => {

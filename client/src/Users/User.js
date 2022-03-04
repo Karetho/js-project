@@ -6,7 +6,7 @@ import EditIcon from "@material-ui/icons/Edit";
 
 class User extends Component {
   deleteUser(id) {
-    fetch("http://localhost:9000/users/delete/" + id).then(
+    fetch("http://localhost/api/users/delete/" + id).then(
       this.props.history.push("/users")
     );
   }
