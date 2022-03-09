@@ -18,6 +18,8 @@ services:
     # ports:
     #   - "3000:3000"
     working_dir: /client/src/app
+    environment:
+      API_URL: http://localhost/api
     volumes:
       - ./client:/client/src/app
     depends_on:
@@ -31,6 +33,10 @@ services:
     volumes:
       - ./api:/api
       - /api/node_modules
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: community
     depends_on:
       - db
     networks:
@@ -45,6 +51,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_DATABASE: community
     networks:
       - webappnetwork
 

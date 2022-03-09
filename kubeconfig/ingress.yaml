@@ -1,17 +1,28 @@
-#apiVersion: networking.k8s.io/v1
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: minimal-ingress
+  name: demo-localhost
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
+  ingressClassName: nginx
   rules:
-  - http:
+  - host: demo.localdev.me
+    http:
       paths:
-      - path: /
-        backend:
-          serviceName: client
-          servicePort: 3000
-      - path: /api
-        backend:
-          serviceName: api
-          servicePort: 9000
+      - backend:
+          service:
+            name: react-client-deployment
+            port:
+              number: 3000
+        path: /
+        pathType: Prefix
+      - backend:
+          service:
+            name: express-api-deployment
+            port:
+              number: 9000
+        path: /api/.*
+        pathType: Prefix
+status:
+  loadBalancer: {}

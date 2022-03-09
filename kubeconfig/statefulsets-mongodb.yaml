@@ -1,22 +1,21 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: react-client-deployment
-  labels:
-    app: react-client
+  name: mongodb
 spec:
-  replicas: 3
   selector:
     matchLabels:
-      app: react-client
+      app: mongodb
+  serviceName: mongodb
+  replicas: 1
   template:
     metadata:
       labels:
-        app: react-client
+        app: mongodb
     spec:
       containers:
-      - name: client
-        image: localhost:5001/rlim/webapp-client:1.1
+      - name: mongodb
+        image:  mongo:5.0
         env:
         - name: MONGO_INITDB_DATABASE
           value: community
@@ -31,4 +30,21 @@ spec:
               name: mongodb-secret
               key: mongodb-root-username
         ports:
-        - containerPort: 3000
+        - name: mongodb
+          containerPort: 27017
+        volumeMounts:
+        - name: mongodb-pvc-data
+          mountPath: /data/db
+          subPath: mongodb
+      volumes:
+      - name: conf
+        emptyDir: {}
+  volumeClaimTemplates:
+  - metadata:
+      name: mongodb-pvc-data
+    spec:
+      accessModes: ["ReadWriteOnce"]
+      resources:
+        requests:
+          storage: 1Gi
+

@@ -11,9 +11,24 @@ if [ "$(docker inspect -f '{{.State.Running}}' "${reg_name}" 2>/dev/null || true
 fi
 
 # create a cluster with the local registry enabled in containerd
-cat <<EOF | kind create cluster --name mern --image kindest/node:v1.17.17 --config=-
+cat <<EOF | kind create cluster --name mern --config=-
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
+nodes:
+- role: control-plane
+  kubeadmConfigPatches:
+  - |
+    kind: InitConfiguration
+    nodeRegistration:
+      kubeletExtraArgs:
+        node-labels: "ingress-ready=true"
+  extraPortMappings:
+  - containerPort: 80
+    hostPort: 80
+    protocol: TCP
+  - containerPort: 443
+    hostPort: 443
+    protocol: TCP
 containerdConfigPatches:
 - |-
   [plugins."io.containerd.grpc.v1.cri".registry.mirrors."localhost:${reg_port}"]
@@ -39,3 +54,7 @@ data:
     help: "https://kind.sigs.k8s.io/docs/user/local-registry/"
 EOF
 
+# Install NGINX ingress controller
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.1.1/deploy/static/provider/cloud/deploy.yaml
+
+kubectl apply -f deployments-backend.yaml,deployments-frontend.yaml,service-backend.yaml,service-frontend.yaml,ingress.yaml

@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
       - name: api
-        image: localhost:5001/rlim/webapp-api:1.0
+        image: localhost:5001/rlim/webapp-api:1.2
         ports:
         - containerPort: 9000

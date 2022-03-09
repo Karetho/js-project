@@ -4,6 +4,8 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 var cors = require("cors");
+require('dotenv').config({ path: `.env.${process.env.NODE_ENV}` });
+
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
